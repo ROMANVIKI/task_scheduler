@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;">
+    <div style="max-width: 500px; margin: 50px auto; padding: 20px; background: #ffffff; border: 1px solid #ddd; border-radius: 8px;">
+        <h2 style="text-align: center; color: #333;">Register</h2>
+        <form method="POST" action="" style="display: flex; flex-direction: column; gap: 10px;">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">
+                Register
+            </button>
+        </form>
+        <div style="margin-top: 15px; text-align: center;">
+            <a href="/accounts/login/" style="color: #4CAF50; text-decoration: none;">Already have an account? Login</a>
+        </div>
+    </div>
+</body>
+</html>
+

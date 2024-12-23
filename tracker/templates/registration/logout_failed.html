@@ -1,0 +1,49 @@
+<!-- registration/logout_failed.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout Failed</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffebeb;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .message {
+            background-color: #dc3545;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            width: 300px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        p {
+            margin-top: 10px;
+        }
+        a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="message">
+        <h1>Logout Failed</h1>
+        <p>There was an issue logging you out. Please try again.</p>
+        <p><a href="{% url 'tasks' %}">Go to Dashboard</a></p>
+    </div>
+</body>
+</html>
+

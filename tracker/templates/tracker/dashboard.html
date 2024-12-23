@@ -1,0 +1,33 @@
+<!-- templates/tracker/dashboard.html -->
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+<h1>Dashboard</h1>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Total Time Tracked</h5>
+                <p class="card-text display-4">{{ total_time }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Category Distribution</h5>
+                <div id="category-chart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    {% if chart_json %}
+        var chartData = {{ chart_json|safe }};
+        Plotly.newPlot('category-chart', chartData.data, chartData.layout);
+    {% endif %}
+</script>
+{% endblock %}

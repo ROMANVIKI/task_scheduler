@@ -1,0 +1,129 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title">Time Tracking Reports</h2>
+                
+                <!-- Date Range Selector -->
+                <form method="get" class="mb-4">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="start_date">Start Date</label>
+                                <input type="date" class="form-control" id="start_date" 
+                                       name="start_date" value="{{ start_date|date:'Y-m-d' }}">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="end_date">End Date</label>
+                                <input type="date" class="form-control" id="end_date" 
+                                       name="end_date" value="{{ end_date|date:'Y-m-d' }}">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary mt-4">Update Report</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Summary Cards -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Hours</h5>
+                                <p class="display-4">{{ total_hours|floatformat:1 }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h5 class="card-title">Most Active Category</h5>
+                                <p class="display-6">{{ most_active_category|default:"N/A" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h5 class="card-title">Active Tasks</h5>
+                                <p class="display-4">{{ active_tasks_count }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Time by Category</h5>
+                                <div id="category-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Daily Activity</h5>
+                                <div id="daily-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Time Entries Table -->
+                <h3 class="mt-4">Detailed Time Entries</h3>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Category</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entry in time_entries %}
+                            <tr>
+                                <td>{{ entry.task.title }}</td>
+                                <td>{{ entry.task.category.name|default:"Uncategorized" }}</td>
+                                <td>{{ entry.start_time|date:"F j, Y H:i" }}</td>
+                                <td>{{ entry.end_time|date:"F j, Y H:i"|default:"-" }}</td>
+                                <td>{{ entry.duration|default:"In progress" }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5">No time entries found for the selected period.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    {% if category_chart_json %}
+        var categoryChartData = {{ category_chart_json|safe }};
+        Plotly.newPlot('category-chart', categoryChartData.data, categoryChartData.layout);
+    {% endif %}
+
+    {% if daily_chart_json %}
+        var dailyChartData = {{ daily_chart_json|safe }};
+        Plotly.newPlot('daily-chart', dailyChartData.data, dailyChartData.layout);
+    {% endif %}
+</script>
+{% endblock %}

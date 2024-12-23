@@ -1,0 +1,49 @@
+<!-- registration/logout_success.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .message {
+            background-color: #28a745;
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            width: 300px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        p {
+            margin-top: 10px;
+        }
+        a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="message">
+        <h1>Logout Successful!</h1>
+        <p>You have been logged out successfully.</p>
+        <p><a href="{% url 'login' %}">Click here to login again.</a></p>
+    </div>
+</body>
+</html>
+
